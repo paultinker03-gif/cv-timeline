@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<meta name="ext-resource-dependency" content="./.image-slots.state.json" data-resource-id="imageSlotsState" />
 </head>
 <body>
 <x-dc>
@@ -34,14 +35,18 @@
     100% { opacity:0.6; transform:scale(1); }
   }
   @media (max-width: 700px) {
+    [data-role="cv-akqa-0"] { width:min(552px, 48.9vw) !important; height:min(620px, 54.9vw) !important; }
+    [data-role="cv-akqa-1"] { width:min(381px, 33.7vw) !important; height:min(496px, 43.9vw) !important; }
+    [data-role="cv-akqa-2"] { width:min(193px, 17.1vw) !important; height:min(179px, 15.8vw) !important; }
+    [data-role="cv-akqa-3"] { width:min(145px, 12.8vw) !important; height:min(120px, 10.6vw) !important; }
     [data-role="cv-title"], [data-role="cv-desc"] { width:calc(100vw - 56px) !important; }
-    [data-role="cv-imggroup"] { left:16px !important; right:16px !important; top:2% !important; bottom:16% !important; }
+    [data-role="cv-imggroup"]:not([data-imgcount="6"]) { left:16px !important; right:16px !important; top:2% !important; bottom:16% !important; }
     [data-role="cv-desc"] { bottom:70px !important; }
     [data-role="cv-blob-left"] { left:-10% !important; }
     [data-role="cv-blob-right"] { right:-10% !important; }
   }
   @media (min-width: 1024px) and (max-width: 1440px) {
-    [data-role="cv-imggroup"] { left:min(220px, 18vw) !important; right:min(220px, 18vw) !important; }
+    [data-role="cv-imggroup"]:not([data-imgcount="6"]) { left:min(220px, 18vw) !important; right:min(220px, 18vw) !important; }
     [data-role="cv-blob-left"] img, [data-role="cv-blob-right"] img { transform:scale(0.6); }
   }
   @media (min-width: 1441px) {
@@ -49,9 +54,17 @@
   }
   @media (min-width: 1024px) {
     [data-role="cv-desc"] { width:min(460px, 32vw) !important; bottom:28px !important; }
+    [data-role="cv-title"] { width:min(460px, 32vw) !important; }
     [data-role="cv-yearnav"] { justify-content:flex-end !important; }
   }
   [data-role="cv-rotate-msg"] { display:none; }
+  @media (min-width: 1440px) {
+    [data-role="cv-imggroup"][data-imgcount="6"] { transform:scale(0.9); transform-origin:50% 50%; }
+  }
+  @media (min-width: 1900px) {
+    [data-role="cv-imggroup"][data-imgcount="6"] { transform:scale(0.78); transform-origin:50% 50%; }
+    [data-role="cv-imggroup"][data-imgcount="6"] > div { overflow:visible !important; }
+  }
   @media (max-height: 500px) and (orientation: landscape) {
     [data-role="cv-title"], [data-role="cv-desc"], [data-role="cv-imggroup"], [data-role="cv-blob-left"], [data-role="cv-blob-right"], [data-role="cv-yearnav"] { display:none !important; }
     [data-role="cv-rotate-msg"] { display:flex !important; }
@@ -101,7 +114,7 @@
           </div>
         </sc-if>
 
-        <div data-role="cv-imggroup" style="position:absolute; left:{{ e.groupLeft }}; right:{{ e.groupRight }}; top:{{ e.groupTop }}; bottom:{{ e.groupBottom }}; pointer-events:{{ e.pe }}; z-index:{{ e.imgZ }}">
+        <div data-role="cv-imggroup" data-imgcount="{{ e.imgCount }}" style="position:absolute; left:{{ e.groupLeft }}; right:{{ e.groupRight }}; top:{{ e.groupTop }}; bottom:{{ e.groupBottom }}; pointer-events:{{ e.pe }}; z-index:{{ e.imgZ }}">
           <sc-if value="{{ e.wide4 }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute; left:13%; top:20%; width:28%; height:38%; transform:translateX({{ e.images.0.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.0.delay }}ms">
               <div style="width:100%; height:100%; transform:translate({{ e.images.0.px }}, {{ e.images.0.py }}); transition:transform 300ms ease-out">
@@ -132,6 +145,40 @@
               </div>
             </div>
           </sc-if>
+          <sc-if value="{{ e.wide4Even }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:1; transform:translateX({{ e.images.0.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.0.delay }}ms">
+              <div data-role="cv-akqa-0" style="width:min(552px, 28.75vw); height:min(620px, 32.29vw); max-width:100%; max-height:100%; transform:translate({{ e.images.0.px }}, {{ e.images.0.py }}); transition:transform 300ms ease-out">
+                <div style="width:100%; height:100%; animation:cvFloat 5.2s ease-in-out infinite; animation-delay:0ms">
+                    <image-slot id="{{ e.images.0.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.0.hint }}"></image-slot>
+                </div>
+              </div>
+            </div>
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2; transform:translateX({{ e.images.1.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.1.delay }}ms">
+              <div data-role="cv-akqa-1" style="position:relative; width:min(381px, 19.84vw); height:min(496px, 25.83vw); max-width:100%; max-height:100%; transform:translate({{ e.images.1.px }}, {{ e.images.1.py }}); transition:transform 300ms ease-out">
+                <div style="width:100%; height:100%">
+                  <div style="width:100%; height:100%; transform:translate({{ e.images.1.px }}, {{ e.images.1.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 4.6s ease-in-out infinite; animation-delay:300ms">
+                    <image-slot id="{{ e.images.1.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.1.hint }}"></image-slot>
+                  </div>
+                </div>
+                <div data-role="cv-akqa-3" style="position:absolute; top:0; right:0; width:min(145px, 7.55vw); height:min(120px, 6.25vw); transform:translate(65%, 25%); z-index:1">
+                  <div style="width:100%; height:100%; transform:translate({{ e.images.3.px }}, {{ e.images.3.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 4.9s ease-in-out infinite; animation-delay:900ms">
+                    <image-slot id="{{ e.images.3.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.3.hint }}"></image-slot>
+                  </div>
+                </div>
+                </div>
+                <div data-role="cv-akqa-2" style="position:absolute; bottom:0; left:0; width:min(193px, 10.05vw); height:min(179px, 9.32vw); transform:translate(-35%, 35%); z-index:1">
+                  <div style="width:100%; height:100%; transform:translate({{ e.images.2.px }}, {{ e.images.2.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.8s ease-in-out infinite; animation-delay:600ms">
+                    <image-slot id="{{ e.images.2.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.2.hint }}"></image-slot>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
           <sc-if value="{{ e.wide3 }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute; left:{{ e.img3.l0 }}; top:7.5%; width:{{ e.img3.w0 }}; height:85%; transform:translateX({{ e.images.0.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.0.delay }}ms">
               <div style="width:100%; height:100%; transform:translate({{ e.images.0.px }}, {{ e.images.0.py }}); transition:transform 300ms ease-out">
@@ -157,7 +204,7 @@
           </sc-if>
           <sc-if value="{{ e.wide1 }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute; left:50%; top:50%; width:min(84%, 92vh); aspect-ratio:16/9; transform:translate(-50%,-50%) translateX({{ e.images.0.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.0.delay }}ms">
-              <div style="position:absolute; inset:-26%; border-radius:20px; background:radial-gradient(ellipse, oklch(0.85 0.01 90 / 1) 0%, oklch(0.85 0.01 90 / 0) 68%); filter:blur(30px); animation:cvGlow 5.2s ease-in-out infinite; z-index:0"></div>
+              <div style="position:absolute; inset:4%; border-radius:20px; background:oklch(0.55 0.15 252 / 0.55); filter:blur(30px); animation:cvGlow 5.2s ease-in-out infinite; z-index:0"></div>
               <div style="position:absolute; inset:0; z-index:1; border-radius:8px; overflow:hidden; box-shadow:0 0 70px 12px oklch(0.55 0.15 252 / 0.5)">
                 <sc-if value="{{ e.hasVideo }}" hint-placeholder-val="{{ false }}">
                   <canvas ref="{{ e.videoRef }}" style="position:absolute; inset:0; width:100%; height:100%"></canvas>
@@ -170,19 +217,85 @@
           </sc-if>
           <sc-if value="{{ e.wide5 }}" hint-placeholder-val="{{ true }}">
             <div style="position:absolute; left:0; top:0; width:56%; height:100%; transform:translateX({{ e.images.0.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.0.delay }}ms">
-              <image-slot id="{{ e.images.0.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.0.hint }}"></image-slot>
+              <div style="width:100%; height:100%; transform:translate({{ e.images.0.px }}, {{ e.images.0.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.2s ease-in-out infinite; animation-delay:0ms">
+                    <image-slot id="{{ e.images.0.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.0.hint }}"></image-slot>
+                  </div>
+                </div>
             </div>
             <div style="position:absolute; left:58%; top:0; width:20%; height:48%; transform:translateX({{ e.images.1.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.1.delay }}ms">
-              <image-slot id="{{ e.images.1.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.1.hint }}"></image-slot>
+              <div style="width:100%; height:100%; transform:translate({{ e.images.1.px }}, {{ e.images.1.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 4.6s ease-in-out infinite; animation-delay:300ms">
+                    <image-slot id="{{ e.images.1.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.1.hint }}"></image-slot>
+                  </div>
+                </div>
             </div>
             <div style="position:absolute; left:80%; top:0; width:20%; height:48%; transform:translateX({{ e.images.2.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.2.delay }}ms">
-              <image-slot id="{{ e.images.2.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.2.hint }}"></image-slot>
+              <div style="width:100%; height:100%; transform:translate({{ e.images.2.px }}, {{ e.images.2.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.8s ease-in-out infinite; animation-delay:600ms">
+                    <image-slot id="{{ e.images.2.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.2.hint }}"></image-slot>
+                  </div>
+                </div>
             </div>
             <div style="position:absolute; left:58%; top:52%; width:20%; height:48%; transform:translateX({{ e.images.3.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.3.delay }}ms">
-              <image-slot id="{{ e.images.3.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.3.hint }}"></image-slot>
+              <div style="width:100%; height:100%; transform:translate({{ e.images.3.px }}, {{ e.images.3.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 4.9s ease-in-out infinite; animation-delay:900ms">
+                    <image-slot id="{{ e.images.3.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.3.hint }}"></image-slot>
+                  </div>
+                </div>
             </div>
             <div style="position:absolute; left:80%; top:52%; width:20%; height:48%; transform:translateX({{ e.images.4.dx }}); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.4.delay }}ms">
-              <image-slot id="{{ e.images.4.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.4.hint }}"></image-slot>
+              <div style="width:100%; height:100%; transform:translate({{ e.images.4.px }}, {{ e.images.4.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.4s ease-in-out infinite; animation-delay:1200ms">
+                    <image-slot id="{{ e.images.4.id }}" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.4.hint }}"></image-slot>
+                  </div>
+                </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ e.wide6 }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; inset:0; overflow:hidden">
+              <div style="position:absolute; left:-20vw; top:50%; width:37vw; aspect-ratio:713/822; z-index:2; transform:translate({{ e.images.0.dx }}, -50%); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.0.delay }}ms; filter:drop-shadow(-14px 0 20px oklch(0.25 0.08 258 / 0.16))">
+                <div style="width:100%; height:100%; transform:translate({{ e.images.0.px }}, {{ e.images.0.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.2s ease-in-out infinite; animation-delay:0ms">
+                    <image-slot id="{{ e.images.0.id }}" src="./assets/smart-analytics.png" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.0.hint }}"></image-slot>
+                  </div>
+                </div>
+              </div>
+              <div style="position:absolute; left:8vw; top:50%; width:25vw; aspect-ratio:929/1049; z-index:1; transform:translate({{ e.images.1.dx }}, -50%); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.1.delay }}ms; filter:drop-shadow(-14px 0 20px oklch(0.25 0.08 258 / 0.16))">
+                <div style="width:100%; height:100%; transform:translate({{ e.images.1.px }}, {{ e.images.1.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 4.6s ease-in-out infinite; animation-delay:300ms">
+                    <image-slot id="{{ e.images.1.id }}" src="./assets/smart-home-banner.png" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.1.hint }}"></image-slot>
+                  </div>
+                </div>
+              </div>
+              <div style="position:absolute; left:29vw; top:50%; width:19.5vw; aspect-ratio:730/1064; z-index:2; transform:translate({{ e.images.2.dx }}, -50%); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.2.delay }}ms; filter:drop-shadow(-14px 0 20px oklch(0.25 0.08 258 / 0.16))">
+                <div style="width:100%; height:100%; transform:translate({{ e.images.2.px }}, {{ e.images.2.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.8s ease-in-out infinite; animation-delay:600ms">
+                    <image-slot id="{{ e.images.2.id }}" src="./assets/smart-goodmorning.png" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.2.hint }}"></image-slot>
+                  </div>
+                </div>
+              </div>
+              <div style="position:absolute; left:36vw; top:44%; width:42vw; aspect-ratio:342/512; transform:translate({{ e.images.3.dx }}, -50%); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.3.delay }}ms; filter:drop-shadow(-14px 0 20px oklch(0.25 0.08 258 / 0.16))">
+                <div style="width:100%; height:100%; transform:translate({{ e.images.3.px }}, {{ e.images.3.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 4.9s ease-in-out infinite; animation-delay:900ms">
+                    <image-slot id="{{ e.images.3.id }}" src="./assets/smart-investments.png" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.3.hint }}"></image-slot>
+                  </div>
+                </div>
+              </div>
+              <div style="position:absolute; left:65vw; top:55%; width:38vw; aspect-ratio:584/894; transform:translate({{ e.images.4.dx }}, -50%); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.4.delay }}ms; filter:drop-shadow(-14px 0 20px oklch(0.25 0.08 258 / 0.16))">
+                <div style="width:100%; height:100%; transform:translate({{ e.images.4.px }}, {{ e.images.4.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5.4s ease-in-out infinite; animation-delay:1200ms">
+                    <image-slot id="{{ e.images.4.id }}" src="./assets/smart-security.png" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.4.hint }}"></image-slot>
+                  </div>
+                </div>
+              </div>
+              <div style="position:absolute; left:88vw; top:50%; width:36vw; aspect-ratio:407/591; z-index:1; transform:translate({{ e.images.5.dx }}, -50%); transition:transform 820ms cubic-bezier(.3,0,.2,1) {{ e.images.5.delay }}ms; filter:drop-shadow(-14px 0 20px oklch(0.25 0.08 258 / 0.16))">
+                <div style="width:100%; height:100%; transform:translate({{ e.images.5.px }}, {{ e.images.5.py }}); transition:transform 300ms ease-out">
+                  <div style="width:100%; height:100%; animation:cvFloat 5s ease-in-out infinite; animation-delay:1500ms">
+                    <image-slot id="{{ e.images.5.id }}" src="./assets/smart-plan-aed.png" shape="rounded" radius="4" fit="contain" placeholder="{{ e.images.5.hint }}"></image-slot>
+                  </div>
+                </div>
+              </div>
             </div>
           </sc-if>
         </div>
@@ -194,7 +307,7 @@
         </div>
 
         <div style="position:absolute; left:28px; bottom:96px; width:min(340px, 30vw); z-index:20; transition:opacity 420ms ease; opacity:{{ e.descOp }}" data-role="cv-desc">
-          <div style="font-size:15px; line-height:1.55; text-wrap:pretty; color:{{ e.descColor }}">{{ e.desc }}</div>
+          <div style="font-size:15px; line-height:1.55; text-wrap:pretty; white-space:pre-line; color:{{ e.descColor }}">{{ e.desc }}</div>
           <sc-if value="{{ e.showLink }}" hint-placeholder-val="{{ true }}">
             <a href="{{ e.link }}" target="_blank" rel="noopener" style="display:inline-block; margin-top:14px; font-family:'DM Sans', sans-serif; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:{{ e.linkColor }}; border-bottom:1px solid {{ e.linkColor }}; padding-bottom:2px">{{ e.linkLabel }} ↗</a>
           </sc-if>
@@ -203,9 +316,9 @@
     </sc-for>
   </div>
 
-  <div data-role="cv-yearnav" style="position:absolute; left:0; right:0; bottom:0; height:64px; display:flex; align-items:center; gap:2px; padding:0 28px; overflow-x:auto; z-index:40">
+  <div data-role="cv-yearnav" ref="{{ navRef }}" style="position:absolute; left:0; right:0; bottom:0; height:64px; display:flex; align-items:center; gap:2px; padding:0 28px; overflow-x:auto; z-index:40">
     <sc-for list="{{ entries }}" as="e" hint-placeholder-count="8">
-      <button onClick="{{ e.select }}" style="flex:0 0 auto; border:none; background:{{ e.navBg }}; border-radius:999px; cursor:pointer; padding:10px 18px; font-family:'DM Sans', sans-serif; font-size:12px; letter-spacing:0.1em; color:{{ e.navColor }}; transition:opacity 200ms ease, background 200ms ease; font-weight:{{ e.navWeight }}; opacity:{{ e.navOp }}" style-hover="opacity:1">{{ e.short }}</button>
+      <button ref="{{ e.navItemRef }}" onClick="{{ e.select }}" style="flex:0 0 auto; border:none; background:{{ e.navBg }}; border-radius:999px; cursor:pointer; padding:10px 18px; font-family:'DM Sans', sans-serif; font-size:12px; letter-spacing:0.1em; color:{{ e.navColor }}; transition:opacity 200ms ease, background 200ms ease; font-weight:{{ e.navWeight }}; opacity:{{ e.navOp }}" style-hover="opacity:1">{{ e.short }}</button>
     </sc-for>
   </div>
 
@@ -215,57 +328,64 @@
 <script type="text/x-dc" data-dc-script>
 const DATA = [
   {
-    year: "20+", short: "intro", company: "Paul Tinker", title: "Digital experience & design systems lead",
+    idKey: 0, year: "20+", short: "intro", company: "Paul Tinker", title: "Digital experience & design systems lead",
     meta: "",
     desc: "Twenty years leading digital transformation across global platforms — scaling experiences and design systems for Nespresso, Vodafone and Smart Pension. Currently exploring AI-native product design.",
     link: "https://paultinker.uk", linkLabel: "portfolio", slot: "portrait or showreel still"
   },
   {
-    year: "2001", short: "2001", company: "University for the Creative Arts", title: "BA (Hons) Graphic design",
+    idKey: 1, year: "2001", short: "2001", company: "University for the Creative Arts", title: "BA (Hons) Graphic design",
     meta: "2000–2004",
     desc: "Foundation diploma with distinction, then a 2:1 in graphic design. Where the type habit started.",
     link: null, linkLabel: null, slot: "student work / UCA"
   },
   {
-    year: "2012", short: "2012", company: "Various agencies", title: "Designer & Art Director", imageCount: 1, dark: true,
-    bg: "radial-gradient(circle at 50% 45%, oklch(0.4 0.14 252) 0%, oklch(0.2 0.1 256) 40%, oklch(0.05 0.03 258) 75%, black 100%)", navBg: "oklch(1 0 0 / 0.2)",
+    idKey: "akqa", year: "2008", short: "2008", company: "AKQA", title: "Senior Digital Designer", imageCount: 4, evenGrid: true, dark: true,
+    bg: "radial-gradient(circle at 50% 50%, #DE2721 0%, #5E1717 100%)", navBg: "oklch(1 0 0 / 0.55)",
+    meta: "2004–2008",
+    desc: "Worked across global digital products and campaigns for brands including Nissan, NatWest and Dorling Kindersley. Delivered apps, websites and interactive experiences.\nAwards: Apple iPad App of the Week, FWA Site of the Day, Lovie Awards, Webby Awards.",
+    link: null, linkLabel: null, slot: "AKQA campaign work"
+  },
+  {
+    idKey: 2, year: "2012", short: "2012", company: "Various agencies", title: "Designer & Art Director", imageCount: 1, dark: true,
+    bg: "radial-gradient(circle at 50% 45%, oklch(0.4 0.14 252) 0%, oklch(0.2 0.1 256) 40%, oklch(0.05 0.03 258) 75%, black 100%)", navBg: "oklch(1 0 0 / 0.55)",
     meta: "2012-2015", videoSrc: "./assets/capco-video.webp",
     desc: "Four agency years across publishing, automotive, finance and global consumer brands. Clients from Spotify to the NHS; work picked up Apple iPad App of the Week, FWA, Webby and Lovie recognition.",
     link: null, linkLabel: null, slot: "agency showreel video"
   },
   {
-    year: "2016", short: "2016", company: "The Guardian", title: "Designer & Art Director", imageCount: 3, bg: "oklch(0.93 0.045 145)", float: true, blobs: true, blobColor: "oklch(0.74 0.11 155)", blobScale: 1.8, blobRightScale: 2.6, navBg: "oklch(0.78 0.045 145)",
+    idKey: 3, year: "2016", short: "2016", company: "The Guardian", title: "Designer & Art Director", imageCount: 3, bg: "oklch(0.93 0.045 145)", float: true, blobs: true, blobColor: "oklch(0.74 0.11 155)", blobScale: 1.8, blobRightScale: 2.6, navBg: "oklch(0.78 0.045 145)",
     meta: "2016",
     desc: "Spotify partnered with The Guardian on an interactive campaign to promote Discover Weekly by generating personalized musical footprints, bespoke genre catalogues, and custom social media logos, successfully attracting 40,000 visitors over four weeks.",
     link: null, linkLabel: null, slot: "The Guardian work"
   },
   {
-    year: "2017", short: "2017", company: "Vodafone", title: "Design Lead - Product Design & Design System", imageCount: 3, thirdBig: true, float: true,
+    idKey: 4, year: "2017", short: "2017", company: "Vodafone", title: "Design Lead - Product Design & Design System", imageCount: 3, thirdBig: true, float: true,
     meta: "2017–2020",
     desc: "TOBi was Vodafone's conversational AI assistant designed to handle common customer enquiries and tasks. It utilized a reusable design system and personality guidelines to streamline support and reduce call-centre reliance.",
     link: "https://vodafone.paultinker.uk", linkLabel: "case study", slot: "TOBi / Source screens"
   },
   {
-    year: "2018", short: "2018", company: "Vodafone", title: "Design Lead - Product Design & Design System", imageCount: 4, dark: true,
-    bg: "radial-gradient(140% 140% at 90% 8%, oklch(0.58 0.23 29) 0%, oklch(0.4 0.2 25) 45%, oklch(0.14 0.08 20) 100%)", navBg: "oklch(0.1 0.02 20 / 0.5)",
+    idKey: 5, year: "2018", short: "2018", company: "Vodafone", title: "Design Lead - Product Design & Design System", imageCount: 4, dark: true,
+    bg: "radial-gradient(140% 140% at 90% 8%, oklch(0.58 0.23 29) 0%, oklch(0.4 0.2 25) 45%, oklch(0.14 0.08 20) 100%)", navBg: "oklch(0.62 0.03 20 / 0.6)",
     meta: "2018–2019",
     desc: "Source was Vodafone's enterprise design system, established to unify digital experiences and eliminate repetitive design work across 16 markets. By bridging design and engineering with shared components, it transformed delivery for products like My Vodafone.",
     link: "https://vodafone.paultinker.uk", linkLabel: "case study", slot: "TOBi / Source screens"
   },
   {
-    year: "2020", short: "2020", company: "Smart Pension", title: "Digital lead — product design & design system",
+    idKey: 6, year: "2020", short: "2020", company: "Smart Pension", title: "Digital lead — product design & design system", imageCount: 6, bg: "#B9CEE9", navBg: "oklch(0.9 0.03 250)",
     meta: "2020–2024",
     desc: "Rebuilt the Member, Adviser and Employer platforms used by Smart Pension UK, AIB and Zurich. Multi-brand, multi-currency, multi-language — including right-to-left Arabic.",
     link: "https://smart.paultinker.uk", linkLabel: "case study", slot: "Smart platform screens"
   },
   {
-    year: "2024", short: "2024", company: "Nespresso", title: "Product owner — design system",
+    idKey: 7, year: "2024", short: "2024", company: "Nespresso", title: "Product owner — design system",
     meta: "2024",
     desc: "Owned roadmap and delivery priorities for the design system squad across web and native, defining component standards and governance workflows.",
     link: "https://nespresso.paultinker.uk", linkLabel: "case study", slot: "design system components"
   },
   {
-    year: "2026", short: "2024", company: "Nespresso", title: "Digital experience & design system lead",
+    idKey: 8, year: "2026", short: "2024", company: "Nespresso", title: "Digital experience & design system lead",
     meta: "2024–present",
     desc: "Founding member of the Digital Experience Revamp: one unified B2C and B2B ecosystem across 42+ markets, with the global design system rebuilt behind it and full adoption framed for mid-2027.",
     link: "https://ai.paultinker.uk", linkLabel: "case study", slot: "revamp / global rollout"
@@ -275,12 +395,12 @@ const DATA = [
 const THEME = {
   light: {
     text: "oklch(0.22 0.015 20)", desc: "oklch(0.3 0.02 15)", link: "oklch(0.42 0.09 17)", nav: "oklch(0.28 0.02 10)",
-    pillBg: "oklch(0.86 0.025 6)", pillBgHover: "oklch(0.8 0.035 8)", pillText: "oklch(0.28 0.02 10)",
+    pillBg: "oklch(0.97 0.015 6)", pillBgHover: "oklch(0.93 0.025 8)", pillText: "oklch(0.28 0.02 10)",
     iBorder: "oklch(0.62 0.04 7 / 0.5)", iHoverBg: "oklch(0.62 0.04 7 / 0.18)", iText: "oklch(0.32 0.05 10)"
   },
   dark: {
     text: "oklch(0.97 0.01 30)", desc: "oklch(0.92 0.02 30 / 0.92)", link: "oklch(0.95 0.03 30)", nav: "oklch(0.95 0.03 30)",
-    pillBg: "oklch(0.3 0.03 20 / 0.6)", pillBgHover: "oklch(0.38 0.05 20 / 0.7)", pillText: "oklch(0.95 0.02 30)",
+    pillBg: "oklch(0.7 0.03 20 / 0.65)", pillBgHover: "oklch(0.76 0.04 20 / 0.75)", pillText: "oklch(0.95 0.02 30)",
     iBorder: "oklch(0.95 0.02 30 / 0.4)", iHoverBg: "oklch(0.95 0.02 30 / 0.18)", iText: "oklch(0.95 0.02 30)"
   }
 };
@@ -303,6 +423,25 @@ class Component extends DCLogic {
     };
     window.addEventListener("keydown", this._key);
     window.addEventListener("wheel", this._wheel, { passive: true });
+    this._touchStart = null;
+    this._onTouchStart = (ev) => {
+      if (ev.touches && ev.touches.length === 1) {
+        this._touchStart = { x: ev.touches[0].clientX, y: ev.touches[0].clientY };
+      }
+    };
+    this._onTouchEnd = (ev) => {
+      if (!this._touchStart) return;
+      const t = ev.changedTouches && ev.changedTouches[0];
+      if (!t) { this._touchStart = null; return; }
+      const dx = t.clientX - this._touchStart.x;
+      const dy = t.clientY - this._touchStart.y;
+      this._touchStart = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        this.go(dx < 0 ? 1 : -1);
+      }
+    };
+    window.addEventListener("touchstart", this._onTouchStart, { passive: true });
+    window.addEventListener("touchend", this._onTouchEnd, { passive: true });
     this._mouse = (ev) => {
       this.setState({
         mx: ev.clientX / window.innerWidth - 0.5,
@@ -316,6 +455,8 @@ class Component extends DCLogic {
     window.removeEventListener("keydown", this._key);
     window.removeEventListener("wheel", this._wheel);
     window.removeEventListener("mousemove", this._mouse);
+    window.removeEventListener("touchstart", this._onTouchStart);
+    window.removeEventListener("touchend", this._onTouchEnd);
   }
 
   _startVideo(canvas, src) {
@@ -395,7 +536,7 @@ class Component extends DCLogic {
           const mx = this.state.mx || 0, my = this.state.my || 0;
           const px = (mx * depth).toFixed(1) + "px";
           const py = (my * depth * 0.6).toFixed(1) + "px";
-          return { id: "cv-" + i + "-" + n, hint: n === 0 ? d.slot : "photo " + (n + 1), dx, delay: n * 60, px, py, src: n === 0 ? (d.videoSrc || "") : "" };
+          return { id: "cv-" + d.idKey + "-" + n, hint: n === 0 ? d.slot : "photo " + (n + 1), dx, delay: n * 60, px, py, src: n === 0 ? (d.videoSrc || "") : "" };
         }),
         hasVideo: !!d.videoSrc,
         noVideo: !d.videoSrc,
@@ -415,32 +556,36 @@ class Component extends DCLogic {
         blobRightPy: ((this.state.my || 0) * 20).toFixed(1) + "px",
         img3: d.thirdBig
           ? { l0: "5.8%", w0: "25.4%", l1: "28.2%", w1: "19%", l2: "50.2%", w2: "44%" }
-          : { l0: "2.4%", w0: "27.2%", l1: "33.4%", w1: "27.2%", l2: "64.4%", w2: "27.2%" },
+          : { l0: "5.4%", w0: "27.2%", l1: "36.4%", w1: "27.2%", l2: "67.4%", w2: "27.2%" },
         wide1: (d.imageCount || 5) === 1,
         wide3: (d.imageCount || 5) === 3,
-        wide4: (d.imageCount || 5) === 4,
+        wide4: (d.imageCount || 5) === 4 && !d.evenGrid,
+        wide4Even: (d.imageCount || 5) === 4 && !!d.evenGrid,
         wide5: (d.imageCount || 5) === 5,
+        wide6: (d.imageCount || 5) === 6,
+        imgCount: d.imageCount || 5,
         bg: d.bg || "oklch(0.934 0.02 6)",
         bgOp: on ? 1 : 0,
         textColor: theme.text,
         descColor: theme.desc,
         linkColor: theme.link,
         navColor: activeTheme.nav,
-        groupLeft: "min(400px, 40vw)",
-        groupRight: "min(400px, 40vw)",
-        groupTop: (d.imageCount || 5) === 4 ? "3%" : "9%",
-        groupBottom: (d.imageCount || 5) === 4 ? "3%" : "9%",
+        groupLeft: (d.imageCount || 5) === 6 ? "0" : "min(400px, 40vw)",
+        groupRight: (d.imageCount || 5) === 6 ? "0" : "min(400px, 40vw)",
+        groupTop: (d.imageCount || 5) === 4 ? "3%" : ((d.imageCount || 5) === 6 ? "0" : "9%"),
+        groupBottom: (d.imageCount || 5) === 4 ? "3%" : ((d.imageCount || 5) === 6 ? "0" : "9%"),
         numFont: d.year.length > 3 ? "23vw" : "26vw",
         numOp: on ? strength : 0,
         pe: on ? "auto" : "none",
         dx: on ? "0px" : (i < active ? "-9vw" : "9vw"),
-        imgZ: on ? 5 : 1,
+        imgZ: (d.imageCount || 5) === 6 ? 1 : (on ? 5 : 1),
         textOp: on ? 1 : 0,
         ty: on ? "0px" : "14px",
         descOp: on && info ? 1 : 0,
         navOp: on ? 1 : 0.68,
         navWeight: on ? 700 : 400,
         navBg: on ? (d.navBg || theme.pillBg) : "transparent",
+        navItemRef: on ? (el) => { this._activeNavEl = el; } : null,
         select: () => this.setState({ i })
       };
     });
@@ -457,8 +602,21 @@ class Component extends DCLogic {
       themePillText: activeTheme.pillText,
       themeIBorder: activeTheme.iBorder,
       themeIHoverBg: activeTheme.iHoverBg,
-      themeIText: activeTheme.iText
+      themeIText: activeTheme.iText,
+      navRef: (el) => { this._navEl = el; }
     };
+  }
+
+  componentDidUpdate() {
+    const nav = this._navEl, item = this._activeNavEl;
+    if (!nav || !item) return;
+    const navRect = nav.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+    if (itemRect.left < navRect.left) {
+      nav.scrollLeft -= (navRect.left - itemRect.left) + 28;
+    } else if (itemRect.right > navRect.right) {
+      nav.scrollLeft += (itemRect.right - navRect.right) + 28;
+    }
   }
 }
 
